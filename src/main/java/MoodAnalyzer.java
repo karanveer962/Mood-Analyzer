@@ -14,22 +14,28 @@ public class MoodAnalyzer {
         this.message = message;
     }
     public String analyseMood() {
-        if (message.toLowerCase().contains("happy")) {
-            return "Happy";
-        } else if (message.toLowerCase().contains("sad")) {
-            return "Sad";
-        } else {
-            return "Can't tell";
+        try {
+            if (message == null || message.trim().isEmpty()) {
+                throw new InvalidMoodException("Invalid mood: Mood message cannot be null or empty");
+            }
+
+            if (message.toLowerCase().contains("happy")) {
+                return "Happy";
+            } else if (message.toLowerCase().contains("sad")) {
+                return "Sad";
+            } else {
+                return "Can't tell";
+            }
+        }
+        catch(InvalidMoodException e){
+            return "Invalid message";
         }
     }
 
     public static void main(String[] args) {
 
-        MoodAnalyzer defaultAnalyser = new MoodAnalyzer();
-        System.out.println("Default Mood: " + defaultAnalyser.analyseMood());
-
-        MoodAnalyzer customAnalyser = new MoodAnalyzer("I am so happy!");
-        System.out.println("Custom Mood: " + customAnalyser.analyseMood());
+        MoodAnalyzer Analyser = new MoodAnalyzer();
+        System.out.println("Mood: " + Analyser.analyseMood());
     }
 
 }
